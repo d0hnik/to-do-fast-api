@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="../static/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <div>
+        <button class="task-button" onclick="showForm()">+ Add task</button>
+        </div>
+
+        <div class="task-form" id="taskForm">
+            <h3>Lisa ülesanne</h3>
+            <form action="/add" method="post">
+                <label for="taskTitle"></label>
+                    <input type="text" id="taskTitle" name="title" placeholder="Ülesande pealkiri">
+
+                <label for="taskBody"></label>
+                    <input type="text" id="taskBody" placeholder="Kirjeldus" name="body">
+
+                <input type="submit" value="Lisa yl">
+            </form>
+            <button onclick="hideForm()">Tühista</button>
+        </div>
+        <ul class="todo-list">
+            {% for todo in todos %}
+            <li class="part todo-item">
+                <input type="checkbox" class="part done">
+                <h2 class="part todo-title"> {{ todo.title }} </h2>
+                <div class="part buttons">
+                    <button>Delete</button>
+                    <button>Edit</button>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+<script src="../static/js/scripts.js"></script>
+</body>
+</html>

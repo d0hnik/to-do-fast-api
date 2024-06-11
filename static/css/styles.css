@@ -1,0 +1,84 @@
+/* styles.css */
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding-top: 20px;
+    width: 90%;
+    height: 70%;
+}
+
+
+
+.part {
+    padding: 10px;
+    display: flex;
+}
+
+
+.done {
+    align-content: center;
+    justify-content: center;
+    border-right: 1px solid #ccc;
+}
+
+.todo-title {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    justify-content: left;
+    border-right: 1px solid #ccc;
+}
+
+.buttons {
+    width: 15%;
+}
+
+
+
+
+
+
+.task-button {
+    color: red;
+    cursor: pointer;
+}
+
+.task-form {
+    display: none;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    width: 300px;
+}
+
+.task-form input, .task-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+}
+
+.task-form button {
+    padding: 10px 20px;
+    background-color: #f00;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+li::marker {
+    content: "";
+}
