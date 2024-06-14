@@ -125,7 +125,7 @@ li.todo-item:hover {
     color: #333;
 }
 
-.task-form input[type="text"] {
+.task-form input[type="text"], input[type='password'], input[type='email'] {
     width: calc(100% - 20px);
     padding: 10px;
     margin: 10px 0;
@@ -213,4 +213,41 @@ li.todo-item:hover {
     border-radius: 5px;
     cursor: pointer;
     width: 50px;
+}
+
+.auth-buttons {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.auth-button {
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.auth-button:hover {
+    background-color: #45a049; /* Darker Green */
+}
+
+.register {
+    background-color: #333333;
+    color: #cccccc;
+}
+
+.login {
+    background-color: #cccccc;
+    color: #333333;
+}
+
+.blur {
+    filter: blur(5px);
 }
