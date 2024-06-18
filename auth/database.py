@@ -8,6 +8,7 @@ from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
 from sqlalchemy import Integer, Column, String, Boolean, ForeignKey
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase, relationship, sessionmaker
+from sqlalchemy.future import select
 
 DATABASE_URL = "sqlite+aiosqlite:///./data.db"
 
@@ -46,7 +47,7 @@ engine = create_async_engine(DATABASE_URL)
 async_session_maker = async_sessionmaker(engine, expire_on_commit=False)
 
 SessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False)
-AsyncSessionLocal = sessionmaker(engine, class_=AsyncSession)
+AsyncSessionLocal = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 
 
 async def create_db_and_tables():
@@ -63,6 +64,38 @@ async def get_user_db(session: AsyncSession = Depends(get_async_session)):
     yield SQLAlchemyUserDatabase(session, User)
 
 
+async def get_user_by_username(username: str, session: AsyncSession):
+    """ Fetches a user from the database by username """
+    stmt = select(User).where(User.username == username)
+    result = await session.execute(stmt)
+    return result.scalar_one_or_none()
+
+
 async def get_user_tasks(user_id: int, session: AsyncSession):
-    query = session.query(Task).filter(Task.user_id == user_id).all()
-    return query
+    # No need to explicitly begin a transaction since we're using async session
+    stmt = select(Task).where(Task.user_id == user_id)
+    result = await session.execute(stmt)
+    tasks = result.scalars().all()
+    return tasks
+
+
+async def delete_task_by_id(session: AsyncSession, task_id: int, user_id: int):
+    task = await session.get(Task, task_id)
+
+    if task is None or task.user_id != user_id:
+        return False
+
+    await session.delete(task)
+    await session.commit()  # Salvestame muudatused andmebaasi
+    return True
+
+
+async def update_task_by_id(session: AsyncSession, task_id: int, user_id: int, new_title: str, new_description: str):
+    task = await session.get(Task, task_id)
+    if task is None or task.user_id != user_id:
+        return False
+
+    task.title = new_title
+    task.description = new_description
+    await session.commit()
+    return True

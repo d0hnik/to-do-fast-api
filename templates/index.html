@@ -3,10 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FastAPI Users</title>
+    <title>Daniil Petrov's To-Do Website</title>
+    <link rel="stylesheet" href="../static/css/index.css">
 </head>
 <body>
-    <h1>Welcome to FastAPI Users</h1>
-    <a href="/register">Register</a> | <a href="/login">Login</a>
+    <header>
+        <div class="logo">Daniil Petrov’s To-Do</div>
+        <nav>
+            <ul>
+                <li><button><a href="#">Home</a></button></li>
+                <li><button onclick="showLogin()">Login</button></li>
+                <li><button onclick="showRegister()">Register</button></li>
+                <li><button><a href="#">Contact</a></button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Welcome to To-Do Website!</h1>
+            <p>Organize your day efficiently and conveniently</p>
+            <div class="hero-buttons">
+                <button onclick="showRegister()">Start now</button>
+                <a href="#" class="btn btn-secondary">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2>Features</h2>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <h3>Easy Task Management</h3>
+                    <p>Add, delete, and edit your tasks quickly and easily.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>User-Friendly Interface</h3>
+                    <p>Our clean and intuitive design helps you focus on what matters.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Set Priorities</h3>
+                    <p>Set priorities for your tasks to manage your time effectively.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Mobile Friendly</h3>
+                    <p>Use our website comfortably on both desktop and mobile devices.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="register-overlay" class="register-overlay" onclick="hideRegister()">
+        <section class="register-section" onclick="event.stopPropagation()">
+            <div class="container">
+                <h1>Register</h1>
+                <form id="register-form" action="/register" method="post">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+
+                    <button type="submit">Register</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <div id="login-overlay" class="login-overlay" onclick="hideLogin()">
+        <section class="login-section" onclick="event.stopPropagation()">
+            <div class="container">
+                <h1>Login</h1>
+                <form id="login-form" action="/login" method="post">
+                    <label for="username">Email:</label>
+                    <input type="text" id="login_username" name="username" required>
+
+                    <label for="password">Password:</label>
+                    <input type="password" id="login_password" name="password" required>
+
+                    <button type="submit">Register</button>
+                </form>
+                <p id="error-message" class="error-message" style="color: red; display: none;">Invalid credentials</p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy;All rights not reserved.</p>
+        </div>
+    </footer>
+    <script src="../static/js/index.js"></script>
 </body>
 </html>
