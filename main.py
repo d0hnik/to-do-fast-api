@@ -4,11 +4,10 @@ from fastapi import FastAPI, Depends, Form, Request, HTTPException, status
 from fastapi_users import FastAPIUsers
 from passlib.context import CryptContext
 from sqlalchemy.ext.asyncio import AsyncSession
-from fastapi_login import LoginManager
 from starlette.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import RedirectResponse, HTMLResponse
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi.security import OAuth2PasswordRequestForm
 
 from auth.auth import auth_backend, get_jwt_strategy
 from auth.database import User, get_async_session, create_db_and_tables, get_user_db, get_user_tasks, AsyncSessionLocal, Task, delete_task_by_id, update_task_by_id, get_user_by_username

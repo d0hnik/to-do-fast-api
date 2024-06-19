@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="../static/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <h1>Hello {{user.username}}</h1>
+        <div class="auth-buttons">
+            <form action="/logout">
+                <input type="submit" value="LOGOUT">
+            </form>
+        </div>
+        <div>
+            <button class="task-button" onclick="showForm()">+ Add task</button>
+        </div>
+
+        <ul class="todo-list">
+            {% for task in tasks %}
+            <li class="todo-item" data-id="{{ task.id }}" data-title="{{ task.title }}" data-body="123">
+                <form action="/delete_task/{{ task.id }}" method="post" class="deleteForm">
+                    <input type="checkbox" class="done deleteCheckbox" onchange="this.form.submit()">
+                </form>
+                <h2 class="todo-title">{{ task.title }}</h2>
+                <div class="buttons">
+                    <button class="edit-button" onclick="showEdit(this)">Edit</button>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <div class="task-form" id="taskForm">
+        <h3>Create new task</h3>
+        <form action="/add" method="post">
+            <label for="taskTitle">Task title</label>
+            <input type="text" id="taskTitle" name="title" placeholder="Title">
+            <label for="taskBody">Description</label>
+            <input type="text" id="taskBody" placeholder="Tasks description" name="body">
+            <input type="hidden" id="creatorID" name="creatorID" value={{user.id}}>
+            <input class="sendButton" type="submit" value="Add new task">
+        </form>
+        <button onclick="hideForm()">Cancel</button>
+    </div>
+
+    <div class="overlay" id="overlayEdit"></div>
+
+    <div class="task-form" id="taskEdit">
+        <h3>Edit task</h3>
+        <form id="editForm" action="/update_task" method="post">
+            <input type="hidden" id="editTaskId" name="task_id">
+            <label for="taskTitleEdit">Task title</label>
+            <input type="text" id="taskTitleEdit" name="new_title" placeholder="Task title">
+            <label for="taskBodyEdit">Description</label>
+            <input type="text" id="taskBodyEdit" placeholder="Description" name="new_description">
+            <input class="sendButton" type="submit" value="Update task">
+        </form>
+        <button onclick="hideEdit()">Cancel</button>
+    </div>
+
+<script src="../static/js/dashboard.js"></script>
+</body>
+</html>
